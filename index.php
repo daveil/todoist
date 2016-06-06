@@ -4,6 +4,7 @@ require __DIR__ . '/vendor/autoload.php';
 use \Curl\Curl;
 
 $curl = new Curl();
-$curl->get('http://www.example.com/');
-echo $curl->response;
+//$curl->get('http://www.example.com/');
+//echo $curl->response;
+echo $_ENV['TODOIST_TOKEN'];
 ?>
