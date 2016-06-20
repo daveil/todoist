@@ -22,10 +22,11 @@ if(isset($_POST['title'])&&isset($_POST['content'])){
 		$summaries = $summary[$summary_id];
 		foreach($summaries as $file=>$count){
 			$data = json_decode(file_get_contents($file.'.txt'),true);
-			$contents='';
+			$contents='<ul>';
 			foreach($data['content'] as $content){
-				$contents .= '* '.$content." \n";
+				$contents .= '<li> '.$content.'</li>';
 			}
+			$contents .= '</ul>';
 			$post_data = array(
 				'title'=>$data['title'],
 				'content'=>$contents
