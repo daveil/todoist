@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
 use \Curl\Curl;
-$input =  file_get_contents("tokens.txt",$input);
+$input =  file_get_contents("tokens.txt");
 if($input){
 	$data = json_decode($input, true);	
 	echo '<pre>';
