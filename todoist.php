@@ -24,12 +24,12 @@ if($data['event_name']=='item:completed'){
 	$item =  json_decode($curl->response,true);
 	//Build file
 	$date =  date('m/d/Y',$data['epoch']);
-	$title = $item['project']['name'].' Daily Summary -'.$date.'.txt';
+	$title = $item['project']['name'].' Daily Summary - '.$date.'.txt';
 	$item_content = $item['item']['content'];
 	$content =  "* $item_content \n";
 	file_put_contents($title, $content, FILE_APPEND | LOCK_EX);
 	//Add file info
-	$data['file'] =  array('title'=>$title,'content'=>$content);
+	$data['file'] =  array('title'=>$title,'content'=>$content,'item'=>$item,'response'=>$curl->response);
 }
 
 array_push($contents,$data);
