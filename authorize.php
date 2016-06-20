@@ -5,9 +5,8 @@ if(isset($_GET['my'])){
 	if($_GET['my']=='evernote'){
 
 			$sandbox = false;
-			$china   = false;
 
-			$oauth_handler = new \Evernote\Auth\OauthHandler($sandbox, false, $china);
+			$oauth_handler = new \Evernote\Auth\OauthHandler($sandbox);
 
 			$key      = $_ENV['EVERNOTE_KEY'];
 			$secret   = $_ENV['EVERNOTE_SECRET'];
