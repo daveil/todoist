@@ -27,13 +27,24 @@ if($data['event_name']=='item:completed'){
 	$time =  date('H:i',$data['epoch']);
 	$filename = $date.'-'.$item['project']['id'].'.txt';
 	$item_content = $item['item']['content'];
-	$content =  "* $time - $item_content <br/> ";
+	
+	$content =  " $time - $item_content ";
+	$full_date =  date('M d, Y',$data['epoch']);
+	$title = $item['project']['name'].' Daily Summary - '.$full_date;
+	
+	$post_data = array(
+			'title'=>$title,
+			'content'=>$content,
+	);
+	$curl->post('https://'. $_SERVER['HTTP_HOST'].'/ifttt.php',$post_data);
+	
+	if(false):
+	
 	$file_content = json_decode(file_get_contents($filename),true);
 	
 	if(!$file_content){
-		$date =  date('M d, Y',$data['epoch']);
 		$file_content = array(
-					'title'=>$item['project']['name'].' Daily Summary',
+					'title'=>$title,
 					'date'=>$date,
 					'content'=>'',
 		);
@@ -43,6 +54,7 @@ if($data['event_name']=='item:completed'){
 	
 	//Add file info
 	$data['file'] =  array('title'=>$filename,'content'=>$content);
+	endif;
 }
 
 array_push($contents,$data);
