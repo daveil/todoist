@@ -11,9 +11,7 @@ if(!is_array($contents)){
 }
 //Add timestamp
 $data['epoch']=time();
-array_push($contents,$data);
-//Write new contents
-file_put_contents("events.txt",json_encode($contents));
+
 //Create daily summary for complete item
 if($data['event_name']=='item:completed'){
 	//Request for item details
@@ -30,6 +28,13 @@ if($data['event_name']=='item:completed'){
 	$item_content = $item['item']['content'];
 	$content =  "* $item_content \n";
 	file_put_contents($title, $content, FILE_APPEND | LOCK_EX);
+	//Add file info
+	$data['file'] =  array('title'=>$title,'content'=>$content);
 }
+
+array_push($contents,$data);
+//Write new contents
+file_put_contents("events.txt",json_encode($contents));
+
 ?>
 
