@@ -21,7 +21,7 @@ if(isset($_POST['title'])&&isset($_POST['content'])){
 	$summary = json_decode(file_get_contents('summary.txt'),true);
 	if(isset($summary[$summary_id])){
 		$summaries = $summary[$summary_id];
-		foreach($summaries as $file){
+		foreach($summaries as $file=>$count){
 			$data = json_decode(file_get_contents($file.'.txt'),true);
 			$post_data = array(
 				'title'=>$data['title'],
