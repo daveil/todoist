@@ -13,6 +13,5 @@ $callback = 'https://'. $_SERVER['HTTP_HOST'].'/evernote.php';
 
 $oauth_data  = $oauth_handler->authorize($key, $secret, $callback);
 
-$oauth_token = $oauth_data['oauth_token'];
-print_r($oauth_data);
+echo "\nOauth Token : " . $oauth_data['oauth_token'];
 ?>
