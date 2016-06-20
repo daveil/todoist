@@ -26,8 +26,8 @@ if($data['event_name']=='item:completed'){
 	$date =  date('y-m-d',$data['epoch']);
 	$filename = $date.'-'.$item['project']['id'].'.txt';
 	$item_content = $item['item']['content'];
-	$content =  "* $item_content \n";
-	$file_content = json_decode(file_get_contents($title),true);
+	$content =  "* $item_content\n";
+	$file_content = json_decode(file_get_contents($filename),true);
 	
 	if(!$file_content){
 		$date =  date('M d, Y',$data['epoch']);
