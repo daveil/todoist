@@ -4,7 +4,7 @@ use \Curl\Curl;
 if(isset($_GET['my'])){
 	if($_GET['my']=='evernote'){
 
-			$sandbox = false;
+			$sandbox = true;
 
 			$oauth_handler = new \Evernote\Auth\OauthHandler($sandbox);
 
