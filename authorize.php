@@ -1,6 +1,11 @@
 <?php	
 require __DIR__ . '/vendor/autoload.php';
 use \Curl\Curl;
+if(isset($_GET['my'])){
+	if($_GET['my']=='evernote'){
+		print_r($_GET);
+	}
+}
 if(isset($_GET['code'])&& isset($_GET['state'])){
 	if($_GET['state']=='ALPHA'){
 		$curl = new Curl();

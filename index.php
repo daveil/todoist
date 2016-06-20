@@ -23,5 +23,8 @@ use \Curl\Curl;
 		echo 'TODOIST AUTHORIZE';
 		
 	}
-
+	$url = 'https://sandbox.evernote.com/oauth?';
+	$url .='oauth_callback=https://'. $_SERVER['HTTP_HOST'].'/authorize.php?my=evernote&';
+	$url .='oauth_consumer_key='.$_ENV['EVERNOTE_KEY'];
+	echo '<a href=".'.$url.'">EVERNOTE AUTHORIZE</a>'
 ?>
