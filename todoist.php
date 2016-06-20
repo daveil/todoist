@@ -23,7 +23,7 @@ if($data['event_name']=='item:completed'){
 	$curl->get('https://todoist.com/API/v7/get_item',$get_data);
 	$item =  json_decode($curl->response,true);
 	//Build file
-	$date =  date('m d, Y',$data['epoch']);
+	$date =  date('m/d/Y',$data['epoch']);
 	$title = $item['project']['name'].' Daily Summary -'.$date.'.txt';
 	$item_content = $item['item']['content'];
 	$content =  "* $item_content \n";
