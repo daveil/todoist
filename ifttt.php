@@ -10,7 +10,7 @@ if(isset($_POST['title'])&&isset($_POST['content'])){
 	$curl->setHeader('Content-Type', 'application/json');
 	$data = array(
 					'value1'=>$_POST['title'],
-					'value2'=>$_POST['content'],
+					'value2'=>'<<'.$_POST['content'],
 				);
 	$curl->post('https://maker.ifttt.com/trigger/'.$event.'/with/key/'.$token,$data);
 }else if(isset($_GET['maker'])){
@@ -22,11 +22,10 @@ if(isset($_POST['title'])&&isset($_POST['content'])){
 		$summaries = $summary[$summary_id];
 		foreach($summaries as $file=>$count){
 			$data = json_decode(file_get_contents($file.'.txt'),true);
-			$contents='<ul>';
+			$contents='';
 			foreach($data['content'] as $content){
-				$contents .= '<li> '.$content.'</li>';
+				$contents .= '* '.$content.'<br/>';
 			}
-			$contents .= '</ul>';
 			$post_data = array(
 				'title'=>$data['title'],
 				'content'=>$contents
