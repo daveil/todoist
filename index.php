@@ -1,6 +1,8 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
 use \Curl\Curl;
+//TODOIST 
+
 	//Make Curl POST to check token
 	$curl = new Curl();
 	$data = array(
@@ -16,9 +18,9 @@ use \Curl\Curl;
 		$url.='client_id='.$_ENV['TODOIST_CLIENT_ID'].'&';
 		$url.='scope=data:read&';
 		$url.='state=ALPHA';
-		echo '<a href="'.$url.'">AUTHORIZE</a>';
+		echo '<a href="'.$url.'">TODOIST AUTHORIZE</a>';
 	}else{
-		echo 'Already authorized!';
+		echo 'TODOIST AUTHORIZE';
 		
 	}
 
