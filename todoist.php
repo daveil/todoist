@@ -38,7 +38,7 @@ if($data['event_name']=='item:completed'){
 		);
 	}
 	$file_content['content'].=$content;
-	file_put_contents($filename, $file_content);
+	file_put_contents($filename, json_encode($file_content));
 	
 	//Add file info
 	$data['file'] =  array('title'=>$filename,'content'=>$content);
