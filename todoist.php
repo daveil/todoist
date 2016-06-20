@@ -16,11 +16,11 @@ $data['epoch']=time();
 if($data['event_name']=='item:completed'){
 	//Request for item details
 	$curl = new Curl();
-	$data = array(
+	$post_data = array(
 		'token'=>$_ENV['TODOIST_TOKEN'],
 		'item_id'=>$data['event_data']['id']
 		);
-	$curl->post('https://todoist.com/API/v7/get_item',$data);
+	$curl->post('https://todoist.com/API/v7/get_item',$post_data);
 	$item =  json_decode($curl->response,true);
 	//Build file
 	$date =  date('m d, Y',$data['epoch']);
