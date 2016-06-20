@@ -32,7 +32,7 @@ if($data['event_name']=='item:completed'){
 	$filename = $summary_id.'.txt';
 	$item_content = $item['item']['content'];
 	
-	$content =  " $time - $item_content ";
+	$content =  " $time — $item_content ";
 	$full_date =  date('M d, Y',$data['epoch']);
 	$title = $item['project']['name'].' Daily Summary — '.$full_date;
 	
