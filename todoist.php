@@ -26,7 +26,7 @@ if($data['event_name']=='item:completed'){
 	$item =  json_decode(json_encode($curl->response),true);
 	//Build file
 	$date =  date('y-m-d',$data['epoch']);
-	$time =  date('H:i',$data['epoch']);
+	$time =  date('h:i A',$data['epoch']);
 	$summary_id =  $date.'-'.$item['project']['id'];
 	
 	$filename = $summary_id.'.txt';
