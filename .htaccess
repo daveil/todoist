@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{REQUEST_URI} ^$
+RewriteCond %{HTTP_HOST} ^wttf.herokuapp.com$
+RewriteRule ^$ https://wttf.herokuapp.com/index.php [L,R=301]
