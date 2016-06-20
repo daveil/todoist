@@ -24,6 +24,9 @@ if($input){
 		$url.='scope=data:read&';
 		$url.='state=ALPHA';
 		echo '<a href="'.$url.'">AUTHORIZE</a>';
+	}else{
+		echo 'Already authorized!';
+		
 	}
 
 ?>
