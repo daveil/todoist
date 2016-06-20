@@ -11,7 +11,7 @@ if($input){
 	//Make Curl POST to check token
 	$curl = new Curl();
 	$data = array(
-		'token'=>$token,
+		'token'=>$_ENV['TODOIST_TOKEN'],
 		'sync_token'=>'*',
 		'resource_types'=>['items']
 		);
