@@ -11,6 +11,6 @@ use \Curl\Curl;
 					'value2'=>'Content',
 				);
 	$data =  json_encode($data);
-	$iftt->post('https://maker.ifttt.com/trigger/'.$event.'/with/key/'.$token,$data);
+	$ifttt->post('https://maker.ifttt.com/trigger/'.$event.'/with/key/'.$token,$data);
 	
 ?>
