@@ -1,6 +1,7 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
 use \Curl\Curl;
+date_default_timezone_set('Asia/Manila');
 //Read input
 $input = file_get_contents("php://input");
 //Read and parse contents
@@ -14,6 +15,7 @@ $data['epoch']=time();
 
 //Create daily summary for complete item
 if($data['event_name']=='item:completed'){
+	
 	//Request for item details
 	$curl = new Curl();
 	$get_data = array(
@@ -30,7 +32,7 @@ if($data['event_name']=='item:completed'){
 	
 	$content =  " $time - $item_content ";
 	$full_date =  date('M d, Y',$data['epoch']);
-	$title = $item['project']['name'].' Daily Summary - '.$full_date;
+	$title = $item['project']['name'].' Daily Summary — '.$full_date;
 	
 	$post_data = array(
 			'title'=>$title,
