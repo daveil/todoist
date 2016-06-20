@@ -26,8 +26,9 @@ if($data['event_name']=='item:completed'){
 	$item =  json_decode($curl->response,true);
 	//Build file
 	$date =  date('m d, Y',$data['epoch']);
-	$title = $item['project']['name']. 'Daily Summary -'.$date.'txt';
-	$content =  "* $item['item']['content'] \n";
+	$title = $item['project']['name'].' Daily Summary -'.$date.'.txt';
+	$item_content = $item['item']['content'];
+	$content =  "* $item_content \n";
 	file_put_contents($title, $content, FILE_APPEND | LOCK_EX);
 }
 ?>
