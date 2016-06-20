@@ -62,7 +62,7 @@ if($data['event_name']=='item:completed'){
 		$summary_file[$date] = array();
 	}
 	
-	$summary_file[$date][$summary_id] = count(file_content['content']);
+	$summary_file[$date][$summary_id] = count($file_content['content']);
 	
 	file_put_contents('summary.txt', json_encode($summary_file));
 	
