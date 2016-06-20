@@ -1,1 +1,6 @@
-DirectoryIndex index.php index.html site-down.php
+Options +FollowSymLinks
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^yoursite.com
+RewriteRule (.*) https://wttf.herokuapp.com/$1 [R=301,L]
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9} /index.php HTTP/
+RewriteRule ^index.php$ https://wttf.herokuapp.com/ [R=301,L]
