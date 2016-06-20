@@ -17,7 +17,7 @@ if($input){
 		);
 	$curl->post('https://todoist.com/API/v7/sync',$data);
 	$resp =  json_encode($curl->response,true);
-	$data = json_decode($resp);
+	$data = json_decode($resp,true);
 	print_r($data);
 	if(isset($data['error_tag'])){
 		$url='https://todoist.com/oauth/authorize?';
