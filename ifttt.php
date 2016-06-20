@@ -24,7 +24,7 @@ if(isset($_POST['title'])&&isset($_POST['content'])){
 			$data = json_decode(file_get_contents($file.'.txt'),true);
 			$contents='';
 			foreach($data['content'] as $content){
-				$contents .= '* '.$content.'<br>';
+				$contents .= '* '.$content.'';
 			}
 			$post_data = array(
 				'title'=>$data['title'],
