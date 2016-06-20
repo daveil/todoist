@@ -27,20 +27,17 @@ if($data['event_name']=='item:completed'){
 	//Build file
 	$date =  date('y-m-d',$data['epoch']);
 	$time =  date('H:i',$data['epoch']);
-	$filename = $date.'-'.$item['project']['id'].'.txt';
+	$summary_id =  $date.'-'.$item['project']['id'];
+	
+	$filename = $summary_id.'.txt';
 	$item_content = $item['item']['content'];
 	
 	$content =  " $time - $item_content ";
 	$full_date =  date('M d, Y',$data['epoch']);
 	$title = $item['project']['name'].' Daily Summary — '.$full_date;
 	
-	$post_data = array(
-			'title'=>$title,
-			'content'=>$content,
-	);
-	$curl->post('https://'. $_SERVER['HTTP_HOST'].'/ifttt.php',$post_data);
 	
-	if(false):
+	if(true):
 	
 	$file_content = json_decode(file_get_contents($filename),true);
 	
@@ -48,11 +45,26 @@ if($data['event_name']=='item:completed'){
 		$file_content = array(
 					'title'=>$title,
 					'date'=>$date,
-					'content'=>'',
+					'content'=>[],
 		);
 	}
-	$file_content['content'].=$content;
+	array_push($file_content['content'],$content);
+	
 	file_put_contents($filename, json_encode($file_content));
+	
+	$summary_file =  json_decode(file_get_contents('summary.txt'),true);
+	
+	if(!$summary_file){
+		$summary_file = array();
+	}
+	
+	if(!$summary_file[$date]){
+		$summary_file[$date] = array();
+	}
+	
+	$summary_file[$date][$summary_id] = count(file_content['content']);
+	
+	file_put_contents('summary.txt', json_encode($summary_file));
 	
 	//Add file info
 	$data['file'] =  array('title'=>$filename,'content'=>$content);
