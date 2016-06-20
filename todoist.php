@@ -34,7 +34,8 @@ if($data['event_name']=='item:completed'){
 	
 	$content =  " $time — $item_content ";
 	$full_date =  date('M d, Y',$data['epoch']);
-	$title = $item['project']['name'].' Daily Summary — '.$full_date;
+	$project = $item['project']['name'];
+	$title = $project.' Daily Summary — '.$full_date;
 	
 	
 	if(true):
@@ -43,6 +44,7 @@ if($data['event_name']=='item:completed'){
 	
 	if(!$file_content){
 		$file_content = array(
+					'project'=>$project,
 					'title'=>$title,
 					'date'=>$date,
 					'content'=>[],
