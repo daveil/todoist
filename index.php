@@ -1,14 +1,13 @@
 <?php
+require __DIR__ . '/vendor/autoload.php';
 $input = file_get_contents("php://input");
-
 if($input){
 	$data = json_decode($input, true);	
 	echo '<pre>';
 	print_r($data);
 	file_put_contents("tokens.txt",$input);
 }else{
-	require __DIR__ . '/vendor/autoload.php';
-
+	//Make Curl POST to check token
 	use \Curl\Curl;
 	$curl = new Curl();
 	$data = array(
@@ -19,6 +18,7 @@ if($input){
 	$curl->post('https://todoist.com/API/v7/sync',$data);
 	$resp =  json_encode($curl->response,true);
 	$data = json_decode($resp);
+	
 	if(isset($data['error_tag'])){
 		$url='https://todoist.com/oauth/authorize?';
 		$url='client_id='.$_ENV['TODOIST_CLIENT_ID'].'&';
