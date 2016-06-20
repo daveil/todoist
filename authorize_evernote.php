@@ -1,4 +1,5 @@
 <?php
+require __DIR__ . '/vendor/autoload.php';
 //EVERNOTE
 
 //set this to false to use in production
