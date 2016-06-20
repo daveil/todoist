@@ -1,5 +1,6 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
+use \Curl\Curl;
 $input = file_get_contents("php://input");
 if($input){
 	$data = json_decode($input, true);	
@@ -8,7 +9,6 @@ if($input){
 	file_put_contents("tokens.txt",$input);
 }else{
 	//Make Curl POST to check token
-	use \Curl\Curl;
 	$curl = new Curl();
 	$data = array(
 		'token'=>$_ENV['TODOIST_TOKEN'],
