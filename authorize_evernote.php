@@ -3,7 +3,7 @@ require __DIR__ . '/vendor/autoload.php';
 //EVERNOTE
 
 //set this to false to use in production
-$sandbox = true;
+$sandbox = false;
 
 $oauth_handler = new \Evernote\Auth\OauthHandler($sandbox);
 
