@@ -1,12 +1,11 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
 use \Curl\Curl;
-$input = file_get_contents("php://input");
+$input =  file_get_contents("tokens.txt",$input);
 if($input){
 	$data = json_decode($input, true);	
 	echo '<pre>';
 	print_r($data);
-	file_put_contents("tokens.txt",$input);
 }else{
 	//Make Curl POST to check token
 	$curl = new Curl();
