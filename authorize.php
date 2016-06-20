@@ -14,7 +14,7 @@ if(isset($_GET['code'])&& isset($_GET['state'])){
 		$resp =  json_encode($curl->response,true);
 		$data =  json_decode($resp,true);
 		print_r($data);
-		file_put_contents("tokens.txt",$input);
+		file_put_contents("tokens.txt",json_encode($data));
 	}
 }
 ?>
