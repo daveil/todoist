@@ -3,7 +3,28 @@ require __DIR__ . '/vendor/autoload.php';
 use \Curl\Curl;
 if(isset($_GET['my'])){
 	if($_GET['my']=='evernote'){
-		print_r($_GET);
+
+			$sandbox = false;
+			$china   = false;
+
+			$oauth_handler = new \Evernote\Auth\OauthHandler($sandbox, false, $china);
+
+			$key      = $_ENV['EVERNOTE_KEY'];
+			$secret   = $_ENV['EVERNOTE_SECRET'];
+			$callback = 'https://wttf.herokuapp.com/evernote.php';
+
+			try {
+				$oauth_data  = $oauth_handler->authorize($key, $secret, $callback);
+
+				echo "\nOauth Token : " . $oauth_data['oauth_token'];
+
+				// Now you can use this token to call the api
+				$client = new \Evernote\Client($oauth_data['oauth_token']);
+
+			} catch (Evernote\Exception\AuthorizationDeniedException $e) {
+				//If the user decline the authorization, an exception is thrown.
+				echo "Declined";
+			}
 	}
 }
 if(isset($_GET['code'])&& isset($_GET['state'])){
