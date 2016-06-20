@@ -9,7 +9,7 @@ $oauth_handler = new \Evernote\Auth\OauthHandler($sandbox);
 
 $key      = $_ENV['EVERNOTE_KEY'];
 $secret   = $_ENV['EVERNOTE_SECRET'];
-$callback = 'https://'. $_SERVER['HTTP_HOST'].'/authorize_evernote.php';
+$callback = 'https://'. $_SERVER['HTTP_HOST'].'/evernote.php';
 
 $oauth_data  = $oauth_handler->authorize($key, $secret, $callback);
 
