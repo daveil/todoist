@@ -1,5 +1,6 @@
 {
     "require": {
-        "php-curl-class/php-curl-class": "^4.11"
+        "php-curl-class/php-curl-class": "^4.11",
+        "evernote/evernote-cloud-sdk-php": "dev-master"
     }
 }
