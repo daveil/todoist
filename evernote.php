@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/vendor/autoload.php';
+require 'vendor/autoload.php';
 /**
  * Authorization Tokens are created by either:
  * [1] OAuth workflow: https://dev.evernote.com/doc/articles/authentication.php
