@@ -4,7 +4,7 @@ use \Curl\Curl;
 
 //IFTTT
 	$event = 'update_todoist';
-	$token = 'jCkwax-CmlhOldhdT6cW6dUPntExDCblzRA7JDVGVsH';
+	$token = $_ENV['IFTTT_TOKEN'];
 	$curl = new Curl();
 	$curl->setHeader('Content-Type', 'application/json');
 	$data = array(
