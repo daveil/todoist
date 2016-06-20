@@ -24,9 +24,10 @@ if($data['event_name']=='item:completed'){
 	$item =  json_decode(json_encode($curl->response),true);
 	//Build file
 	$date =  date('y-m-d',$data['epoch']);
+	$time =  date('H:i',$data['epoch']);
 	$filename = $date.'-'.$item['project']['id'].'.txt';
 	$item_content = $item['item']['content'];
-	$content =  "* $item_content\n ";
+	$content =  "* $time - $item_content <br/> ";
 	$file_content = json_decode(file_get_contents($filename),true);
 	
 	if(!$file_content){
