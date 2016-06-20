@@ -2,15 +2,16 @@
 require __DIR__ . '/vendor/autoload.php';
 use \Curl\Curl;
 $input =  file_get_contents("tokens.txt");
+$token = $_ENV['TODOIST_TOKEN'];
 if($input){
 	$data = json_decode($input, true);	
-	echo '<pre>';
-	print_r($data);
-}else{
+	if($data['access_token'])
+		$token = $data['access_token'];
+}
 	//Make Curl POST to check token
 	$curl = new Curl();
 	$data = array(
-		'token'=>$_ENV['TODOIST_TOKEN'],
+		'token'=>$token,
 		'sync_token'=>'*',
 		'resource_types'=>['items']
 		);
@@ -24,5 +25,5 @@ if($input){
 		$url.='state=ALPHA';
 		echo '<a href="'.$url.'">AUTHORIZE</a>';
 	}
-}
+
 ?>
