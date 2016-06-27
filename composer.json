@@ -1,6 +1,7 @@
 {
     "require": {
         "php-curl-class/php-curl-class": "^4.11",
-        "evernote/evernote-cloud-sdk-php": "dev-master"
+        "evernote/evernote-cloud-sdk-php": "dev-master",
+		 "dropbox/dropbox-sdk": "1.1.*"
     }
 }
