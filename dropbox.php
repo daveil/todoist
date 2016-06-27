@@ -6,13 +6,15 @@ $dbxClient = new dbx\Client($_ENV['DROPBOX_TOKEN'], "WTTF");
 
 $f = fopen("events.txt", "w+b");
 $fileMetadata = $dbxClient->getFile("/events.txt", $f);
+echo '<pre>';
+print_r($fileMetadata);
 fclose($f);
 
-file_put_contents("events.txt",rand());
+/* file_put_contents("events.txt",rand());
 
 $f = fopen("events.txt", "rb");
 $result = $dbxClient->uploadFile("/events.txt", dbx\WriteMode::force(), $f);
-fclose($f);
+fclose($f); */
 
 /* 
 $accountInfo = $dbxClient->getAccountInfo();
