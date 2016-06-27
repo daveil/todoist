@@ -86,7 +86,7 @@ if($data['event_name']=='item:completed'){
 	
 	file_put_contents('summary.txt', json_encode($summary_file));
 	$f = fopen("summary.txt", "rb");
-	$result = $dbxClient->uploadFile("summary.txt", dbx\WriteMode::force(), $f);
+	$result = $dbxClient->uploadFile("/summary.txt", dbx\WriteMode::force(), $f);
 	
 	//Add file info
 	$data['file'] =  array('title'=>$filename,'content'=>$content);
@@ -96,7 +96,7 @@ if($data['event_name']=='item:completed'){
 array_push($contents,$data);
 //Write new contents
 file_put_contents("events.txt",json_encode($contents));
-$result = $dbxClient->uploadFile("events.txt", dbx\WriteMode::force(), $f);
+$result = $dbxClient->uploadFile("/events.txt", dbx\WriteMode::force(), $f);
 
 ?>
 
