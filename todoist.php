@@ -10,7 +10,7 @@ $input = file_get_contents("php://input");
 $dbxClient = new dbx\Client($_ENV['DROPBOX_TOKEN'], "WTTF");
 // Load events txt  from Dropbox
 $f = fopen("events.txt", "w+b");
-$dbxClient->getFile("/events.txt", $f);
+$hasEvents = $dbxClient->getFile("/events.txt", $f);
 fclose($f);
 
 //Read and parse contents
@@ -26,7 +26,7 @@ $data['epoch']=time();
 if($data['event_name']=='item:completed'){
 	// Load summary txt from Dropbox
 	$f = fopen("summary.txt", "w+b");
-	$dbxClient->getFile("/summary.txt", $f);
+	$hasSummary = $dbxClient->getFile("/summary.txt", $f);
 	fclose($f);
 	
 	//Request for item details
@@ -51,14 +51,14 @@ if($data['event_name']=='item:completed'){
 	$title = $project.' Daily Summary — '.$full_date;
 	
 	$f = fopen($filename, "w+b");
-	$dbxClient->getFile("/logs/".$filename, $f);
+	$hasFile = $dbxClient->getFile("/logs/".$filename, $f);
 	
 	if(true):
 	
 	$file_content = json_decode(file_get_contents($filename),true);
 	
 	$f = fopen($filename, "rb");
-	$result = $dbxClient->uploadFile("/logs/".$filename, dbx\WriteMode::force(), $f);
+	$dbxClient->uploadFile("/logs/".$filename, $hasFile?dbx\WriteMode::force():dbx\WriteMode::add(), $f);
 	
 	if(!$file_content){
 		$file_content = array(
@@ -86,7 +86,7 @@ if($data['event_name']=='item:completed'){
 	
 	file_put_contents('summary.txt', json_encode($summary_file));
 	$f = fopen("summary.txt", "rb");
-	$result = $dbxClient->uploadFile("/summary.txt", dbx\WriteMode::force(), $f);
+	$result = $dbxClient->uploadFile("/summary.txt", $hasSummary?dbx\WriteMode::force():dbx\WriteMode::add(), $f);
 	
 	//Add file info
 	$data['file'] =  array('title'=>$filename,'content'=>$content);
@@ -96,7 +96,7 @@ if($data['event_name']=='item:completed'){
 array_push($contents,$data);
 //Write new contents
 file_put_contents("events.txt",json_encode($contents));
-$result = $dbxClient->uploadFile("/events.txt", dbx\WriteMode::force(), $f);
+$result = $dbxClient->uploadFile("/events.txt", $hasEvents?dbx\WriteMode::force():dbx\WriteMode::add(), $f);
 
 ?>
 
