@@ -1,9 +1,18 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
 use \Curl\Curl;
+use \Dropbox as dbx;
+
 date_default_timezone_set('Asia/Manila');
 //Read input
 $input = file_get_contents("php://input");
+// Initialize Dropbox client
+$dbxClient = new dbx\Client($_ENV['DROPBOX_TOKEN'], "WTTF");
+// Load events txt  from Dropbox
+$f = fopen("events.txt", "w+b");
+$dbxClient->getFile("/events.txt", $f);
+fclose($f);
+
 //Read and parse contents
 $contents = json_decode(file_get_contents("events.txt"),true);
 $data = json_decode($input,true);
@@ -15,6 +24,10 @@ $data['epoch']=time();
 
 //Create daily summary for complete item
 if($data['event_name']=='item:completed'){
+	// Load summary txt from Dropbox
+	$f = fopen("summary.txt", "w+b");
+	$dbxClient->getFile("/summary.txt", $f);
+	fclose($f);
 	
 	//Request for item details
 	$curl = new Curl();
@@ -37,10 +50,15 @@ if($data['event_name']=='item:completed'){
 	$project = $item['project']['name'];
 	$title = $project.' Daily Summary — '.$full_date;
 	
+	$f = fopen($filename, "w+b");
+	$dbxClient->getFile("/logs/".$filename, $f);
 	
 	if(true):
 	
 	$file_content = json_decode(file_get_contents($filename),true);
+	
+	$f = fopen($filename, "rb");
+	$result = $dbxClient->uploadFile("/logs/".$filename, dbx\WriteMode::force(), $f);
 	
 	if(!$file_content){
 		$file_content = array(
@@ -67,6 +85,8 @@ if($data['event_name']=='item:completed'){
 	$summary_file[$date][$summary_id] = count($file_content['content']);
 	
 	file_put_contents('summary.txt', json_encode($summary_file));
+	$f = fopen("summary.txt", "rb");
+	$result = $dbxClient->uploadFile("summary.txt", dbx\WriteMode::force(), $f);
 	
 	//Add file info
 	$data['file'] =  array('title'=>$filename,'content'=>$content);
@@ -76,6 +96,7 @@ if($data['event_name']=='item:completed'){
 array_push($contents,$data);
 //Write new contents
 file_put_contents("events.txt",json_encode($contents));
+$result = $dbxClient->uploadFile("events.txt", dbx\WriteMode::force(), $f);
 
 ?>
 
