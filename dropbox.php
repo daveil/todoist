@@ -1,10 +1,8 @@
 <?php
-# Include the Dropbox SDK libraries
 require __DIR__ . '/vendor/autoload.php';
 use \Dropbox as dbx;
-
 // We can now use $accessToken to make API requests.
-$client = dbx\Client($_ENV['DROPBOX_TOKEN'], "WTTF");
+$dbxClient = dbx\Client($_ENV['DROPBOX_TOKEN'], "WTTF");
 $accountInfo = $dbxClient->getAccountInfo();
 
 print_r($accountInfo);
