@@ -43,7 +43,7 @@ if(isset($_POST['title'])&&isset($_POST['content'])&&isset($_POST['project'])){
 			$filename = $file.'.txt';
 			$f = fopen($filename, "w+b");
 			$fileMeta = $dbxClient->getFile('/logs/'.$filename, $f);
-			$fileAvailable[$file]=bool($fileMeta);
+			$fileAvailable[$file]=(bool)$fileMeta;
 			fclose($f);
 		}
 		//Load contents
