@@ -18,7 +18,7 @@ function getWebAuth()
 
 // ----------------------------------------------------------
 // In the URL handler for "/dropbox-auth-start"
-if(!isset($_GET['authroized'])){
+if(!isset($_GET['state'])){
 	$authorizeUrl = getWebAuth()->start();
 	header("Location: $authorizeUrl");
 }
