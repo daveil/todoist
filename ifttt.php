@@ -37,12 +37,14 @@ if(isset($_POST['title'])&&isset($_POST['content'])&&isset($_POST['project'])){
 	$summary = json_decode(file_get_contents('summary.txt'),true);
 	if(isset($summary[$summary_id])){
 		$summaries = $summary[$summary_id];
+		//Clone Dropbox files
 		foreach($summaries as $file=>$count){
 			$filename = $file.'.txt';
 			$f = fopen($filename, "w+b");
 			$dbxClient->getFile('/logs/'.$filename, $f);
 			fclose($f);
 		}
+		//Load contents
 		foreach($summaries as $file=>$count){
 			$filename = $file.'.txt';
 			$data = json_decode(file_get_contents($filename),true);
@@ -57,6 +59,13 @@ if(isset($_POST['title'])&&isset($_POST['content'])&&isset($_POST['project'])){
 				);
 			$curl->post('https://'. $_SERVER['HTTP_HOST'].'/ifttt.php',$post_data);
 		}
+		//Delete files to Dropbox
+		foreach($summaries as $file=>$count){
+			$filename = $file.'.txt';
+			$dbxClient->delete('/logs/'.$filename);
+		}
+		//Delete events txt to save space
+		$dbxClient->delete('/events.txt');
 	}
 }
 ?>
