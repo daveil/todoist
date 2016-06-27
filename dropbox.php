@@ -11,9 +11,9 @@ function getWebAuth()
 	);
    $appInfo = dbx\AppInfo::loadFromJson($jsonArr);
    $clientIdentifier = "my-app/1.0";
-   $redirectUri = "https://wttf.herokuapp.com/dropbox.php?authroized";
+   $redirectUri = "https://wttf.herokuapp.com/dropbox.php";
    $csrfTokenStore = new dbx\ArrayEntryStore($_SESSION, 'dropbox-auth-csrf-token');
-   return new dbx\WebAuth($appInfo, $clientIdentifier, $redirectUri, $csrfTokenStore, "WTTF");
+   return new dbx\WebAuth($appInfo, $clientIdentifier, $redirectUri, $csrfTokenStore, "en-ph");
 }
 
 // ----------------------------------------------------------
