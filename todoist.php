@@ -10,9 +10,9 @@ $input = file_get_contents("php://input");
 $dbxClient = new dbx\Client($_ENV['DROPBOX_TOKEN'], "WTTF");
 //Initialize files
 if(!file_exists('events.txt'))
-	file_put_contents('events.txt',null);
+	file_put_contents('events.txt',"");
 if(!file_exists('summary.txt'))
-	file_put_contents('summary.txt',null);
+	file_put_contents('summary.txt',"");
 
 // Load events txt  from Dropbox
 $f = fopen("events.txt", "w+b");
@@ -57,7 +57,7 @@ if($data['event_name']=='item:completed'){
 	$title = $project.' Daily Summary — '.$full_date;
 	
 	if(!file_exists($filename))
-		file_put_contents($filename,null);
+		file_put_contents($filename,"");
 	
 	$f = fopen($filename, "w+b");
 	$hasFile = $dbxClient->getFile("/logs/".$filename, $f);
