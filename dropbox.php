@@ -7,6 +7,7 @@ $accountInfo = $dbxClient->getAccountInfo();
 echo '<pre>';
 print_r($accountInfo);
 
+file_put_contents("working-draft.txt","sample");
 $f = fopen("working-draft.txt", "rb");
 $result = $dbxClient->uploadFile("/working-draft.txt", dbx\WriteMode::add(), $f);
 fclose($f);
