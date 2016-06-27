@@ -66,9 +66,7 @@ if($data['event_name']=='item:completed'){
 	
 	$file_content = json_decode(file_get_contents($filename),true);
 	
-	$f = fopen($filename, "rb");
-	$dbxClient->uploadFile("/logs/".$filename, $hasFile?dbx\WriteMode::force():dbx\WriteMode::add(), $f);
-	fclose($f);
+	
 	
 	if(!$file_content){
 		$file_content = array(
@@ -81,6 +79,11 @@ if($data['event_name']=='item:completed'){
 	array_push($file_content['content'],$content);
 	
 	file_put_contents($filename, json_encode($file_content));
+	
+	$f = fopen($filename, "rb");
+	$dbxClient->uploadFile("/logs/".$filename, $hasFile?dbx\WriteMode::force():dbx\WriteMode::add(), $f);
+	fclose($f);
+	
 	
 	$summary_file =  json_decode(file_get_contents('summary.txt'),true);
 	
