@@ -8,6 +8,12 @@ date_default_timezone_set('Asia/Manila');
 $input = file_get_contents("php://input");
 // Initialize Dropbox client
 $dbxClient = new dbx\Client($_ENV['DROPBOX_TOKEN'], "WTTF");
+//Initialize files
+if(!file_exists('events.txt'))
+	file_put_contents('events.txt',null);
+if(!file_exists('summary.txt'))
+	file_put_contents('summary.txt',null);
+
 // Load events txt  from Dropbox
 $f = fopen("events.txt", "w+b");
 $hasEvents = $dbxClient->getFile("/events.txt", $f);
@@ -49,6 +55,9 @@ if($data['event_name']=='item:completed'){
 	$full_date =  date('M d, Y',$data['epoch']);
 	$project = $item['project']['name'];
 	$title = $project.' Daily Summary — '.$full_date;
+	
+	if(!file_exists($filename))
+		file_put_contents($filename,null);
 	
 	$f = fopen($filename, "w+b");
 	$hasFile = $dbxClient->getFile("/logs/".$filename, $f);
