@@ -37,15 +37,18 @@ if(isset($_POST['title'])&&isset($_POST['content'])&&isset($_POST['project'])){
 	$summary = json_decode(file_get_contents('summary.txt'),true);
 	if(isset($summary[$summary_id])){
 		$summaries = $summary[$summary_id];
+		$fileAvailable = array();
 		//Clone Dropbox files
 		foreach($summaries as $file=>$count){
 			$filename = $file.'.txt';
 			$f = fopen($filename, "w+b");
-			$dbxClient->getFile('/logs/'.$filename, $f);
+			$fileMeta = $dbxClient->getFile('/logs/'.$filename, $f);
+			$fileAvailable[$file]=bool($fileMeta);
 			fclose($f);
 		}
 		//Load contents
 		foreach($summaries as $file=>$count){
+			if(!$fileAvailable[$file]) continue;
 			$filename = $file.'.txt';
 			$data = json_decode(file_get_contents($filename),true);
 			$contents='';
@@ -61,6 +64,7 @@ if(isset($_POST['title'])&&isset($_POST['content'])&&isset($_POST['project'])){
 		}
 		//Delete files to Dropbox
 		foreach($summaries as $file=>$count){
+			if(!$fileAvailable[$file]) continue;
 			$filename = $file.'.txt';
 			$dbxClient->delete('/logs/'.$filename);
 		}
