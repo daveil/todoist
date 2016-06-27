@@ -11,7 +11,7 @@ fclose($f);
 file_put_contents("events.txt","");
 
 $f = fopen("events.txt", "rb");
-$result = $dbxClient->uploadFile("/events.txt", dbx\WriteMode::add(), $f);
+$result = $dbxClient->uploadFile("/events.txt", dbx\WriteMode::force(), $f);
 fclose($f);
 
 /* 
