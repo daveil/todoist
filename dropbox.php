@@ -8,7 +8,7 @@ $f = fopen("events.txt", "w+b");
 $fileMetadata = $dbxClient->getFile("/events.txt", $f);
 fclose($f);
 
-file_put_contents("events.txt","");
+file_put_contents("events.txt",rand());
 
 $f = fopen("events.txt", "rb");
 $result = $dbxClient->uploadFile("/events.txt", dbx\WriteMode::force(), $f);
