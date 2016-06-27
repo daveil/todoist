@@ -7,8 +7,12 @@ $dbxClient = new dbx\Client($_ENV['DROPBOX_TOKEN'], "WTTF");
 $f = fopen("events.txt", "w+b");
 $fileMetadata = $dbxClient->getFile("/events.txt", $f);
 fclose($f);
-echo 'Download file...<br/>';
-print_r($fileMetadata);
+
+file_put_contents("events.txt","");
+
+$f = fopen("events.txt", "rb");
+$result = $dbxClient->uploadFile("/events.txt", dbx\WriteMode::add(), $f);
+fclose($f);
 
 /* 
 $accountInfo = $dbxClient->getAccountInfo();
