@@ -4,10 +4,18 @@ use \Dropbox as dbx;
 // We can now use $accessToken to make API requests.
 $dbxClient = new dbx\Client($_ENV['DROPBOX_TOKEN'], "WTTF");
 
+//Initialize files
+if(!file_exists('events.txt'))
+	file_put_contents('events.txt',"");
+if(!file_exists('summary.txt'))
+	file_put_contents('summary.txt',"");
+
+// Load events txt  from Dropbox
 $f = fopen("events.txt", "w+b");
-$fileMetadata = $dbxClient->getFile("/events.txt", $f);
-echo '<pre>';
-print_r($fileMetadata);
+$hasEvents = $dbxClient->getFile("/events.txt", $f);
+if(!$hasEvents){
+	echo 'No events.txt on dropbox';
+}
 fclose($f);
 
 /* file_put_contents("events.txt",rand());
