@@ -68,8 +68,11 @@ if(isset($_POST['title'])&&isset($_POST['content'])&&isset($_POST['project'])){
 			$filename = $file.'.txt';
 			$dbxClient->delete('/logs/'.$filename);
 		}
-		//Delete events txt to save space
-		$dbxClient->delete('/events.txt');
+		//Clean up contents of events txt to save space
+		file_put_contents('events.txt',"");
+		$f = fopen("events.txt", "rb");
+		$dbxClient->uploadFile("/events.txt", dbx\WriteMode::force(), $f);
+		fclose($f);
 	}
 }
 ?>
