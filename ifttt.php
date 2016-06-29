@@ -26,6 +26,7 @@ if(isset($_POST['title'])&&isset($_POST['content'])&&isset($_POST['project'])){
 	$dbxClient = new dbx\Client($_ENV['DROPBOX_TOKEN'], "WTTF");
 	if(!file_exists('summary.txt'))
 		file_put_contents('summary.txt',"");
+	sleep(30);
 	// Load summary txt from Dropbox
 	$f = fopen("summary.txt", "w+b");
 	$hasSummary = $dbxClient->getFile("/summary.txt", $f);
