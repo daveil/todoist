@@ -18,7 +18,7 @@ if(isset($_POST['title'])&&isset($_POST['content'])&&isset($_POST['project'])){
 	$curl->post('https://maker.ifttt.com/trigger/'.$event.'/with/key/'.$token,$data);
 	
 	$event = 'email_team';
-	if($_POST['project']=='ISMS' || $_POST['project']=='ERB'){
+	if($_POST['project']=='ISMS' || $_POST['project']=='ERB' || $_POST['project']=='TSSi' ){
 		$curl->post('https://maker.ifttt.com/trigger/'.$event.'/with/key/'.$token,$data);
 	}
 }else if(isset($_GET['maker'])){
