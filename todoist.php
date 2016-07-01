@@ -76,8 +76,10 @@ if($data['event_name']=='item:completed'){
 					'content'=>[],
 		);
 	}
-	array_push($file_content['content'],$content);
-	
+	$content_str = implode("",$file_content['content']);
+	if(!strpos($content_str,$item_content)){
+		array_push($file_content['content'],$content);
+	}
 	file_put_contents($filename, json_encode($file_content));
 	
 	$f = fopen($filename, "rb");
