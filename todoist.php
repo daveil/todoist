@@ -13,7 +13,7 @@ if(!file_exists('events.txt'))
 	file_put_contents('events.txt',"");
 if(!file_exists('summary.txt'))
 	file_put_contents('summary.txt',"");
-sleep(30);
+
 // Load events txt  from Dropbox
 $f = fopen("events.txt", "w+b");
 $hasEvents = $dbxClient->getFile("/events.txt", $f);
