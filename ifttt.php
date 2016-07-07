@@ -6,8 +6,8 @@ $curl = new Curl();
 
 if(isset($_POST['title'])&&isset($_POST['content'])&&isset($_POST['project'])){
 	//IFTTT
-
-	$event = 'update_todoist';
+	// Copy todoist to evernote
+	$event = 'copy_to_evernote';
 	$token = $_ENV['IFTTT_TOKEN'];
 	$curl->setHeader('Content-Type', 'application/json');
 	$data = array(
@@ -17,9 +17,22 @@ if(isset($_POST['title'])&&isset($_POST['content'])&&isset($_POST['project'])){
 				);
 	$curl->post('https://maker.ifttt.com/trigger/'.$event.'/with/key/'.$token,$data);
 	
-	$event = 'email_team';
+	
 	if($_POST['project']=='ISMS' || $_POST['project']=='ERB' || $_POST['project']=='TSSi' ){
+		//Send email to team for daily updates
+		$event = 'email_team';
 		$curl->post('https://maker.ifttt.com/trigger/'.$event.'/with/key/'.$token,$data);
+		//Update consolidated update list for reference
+		$event = 'updates_list';
+		$items=explode('*',$_POST['content']);
+		foreach($items as $item){
+			$data = array(
+					'value1'=>date('M d',time()),
+					'value2'=>$_POST['project'],
+					'value3'=>$item,
+			);
+			$curl->post('https://maker.ifttt.com/trigger/'.$event.'/with/key/'.$token,$data);
+		}
 	}
 }else if(isset($_GET['maker'])){
 	// Initialize Dropbox client
