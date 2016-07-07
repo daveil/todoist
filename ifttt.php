@@ -26,10 +26,15 @@ if(isset($_POST['title'])&&isset($_POST['content'])&&isset($_POST['project'])){
 		$event = 'updates_list';
 		$items=explode('*',$_POST['content']);
 		foreach($items as $item){
+			if(!$item) continue;
+			$item =  str_replace('<br/>','',$item);
+			$item =  explode('—',$item);
+			$time = $item[0];
+			$task = $item[1];
 			$data = array(
-					'value1'=>date('M d',time()),
+					'value1'=>date('M d',time()). ' '.$time,
 					'value2'=>$_POST['project'],
-					'value3'=>$item,
+					'value3'=>$task,
 			);
 			$curl->post('https://maker.ifttt.com/trigger/'.$event.'/with/key/'.$token,$data);
 		}
