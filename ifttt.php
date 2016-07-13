@@ -24,6 +24,12 @@ if(isset($_POST['title'])&&isset($_POST['content'])&&isset($_POST['project'])){
 		$curl->post('https://maker.ifttt.com/trigger/'.$event.'/with/key/'.$token,$data);
 		//Update consolidated update list for reference
 		$event = 'updates_list';
+		$data = array(
+					'value1'=>date('M d h:i A',time()),
+					'value2'=>$_POST['project'],
+					'value3'=>count($items). 'task(s) completed',
+			);
+		$curl->post('https://maker.ifttt.com/trigger/'.$event.'/with/key/'.$token,$data);
 		$items=explode('*',$_POST['content']);
 		foreach($items as $item){
 			if(!$item) continue;
@@ -33,7 +39,7 @@ if(isset($_POST['title'])&&isset($_POST['content'])&&isset($_POST['project'])){
 			$task = $item[1];
 			$data = array(
 					'value1'=>date('M d',time()). ' '.$time,
-					'value2'=>$_POST['project'],
+					'value2'=>'',
 					'value3'=>$task,
 			);
 			$curl->post('https://maker.ifttt.com/trigger/'.$event.'/with/key/'.$token,$data);
