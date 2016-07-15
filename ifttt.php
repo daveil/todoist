@@ -2,6 +2,7 @@
 require __DIR__ . '/vendor/autoload.php';
 use \Curl\Curl;
 use \Dropbox as dbx;
+date_default_timezone_set('Asia/Manila');
 $curl = new Curl();
 
 if(isset($_POST['title'])&&isset($_POST['content'])&&isset($_POST['project'])){
@@ -24,13 +25,8 @@ if(isset($_POST['title'])&&isset($_POST['content'])&&isset($_POST['project'])){
 		$curl->post('https://maker.ifttt.com/trigger/'.$event.'/with/key/'.$token,$data);
 		//Update consolidated update list for reference
 		$event = 'updates_list';
-		$data = array(
-					'value1'=>date('M d h:i A',time()),
-					'value2'=>$_POST['project'],
-					'value3'=>count($items). 'task(s) completed',
-			);
-		$curl->post('https://maker.ifttt.com/trigger/'.$event.'/with/key/'.$token,$data);
 		$items=explode('*',$_POST['content']);
+		//Append tasks
 		foreach($items as $item){
 			if(!$item) continue;
 			$item =  str_replace('<br/>','',$item);
@@ -42,6 +38,15 @@ if(isset($_POST['title'])&&isset($_POST['content'])&&isset($_POST['project'])){
 					'value2'=>'',
 					'value3'=>$task,
 			);
+			$curl->post('https://maker.ifttt.com/trigger/'.$event.'/with/key/'.$token,$data);
+		}
+		//Append task count
+		if(count($items)>0){
+			$data = array(
+						'value1'=>date('M d h:i A',time()),
+						'value2'=>$_POST['project'],
+						'value3'=>count($items). 'task(s) completed',
+				);
 			$curl->post('https://maker.ifttt.com/trigger/'.$event.'/with/key/'.$token,$data);
 		}
 	}
