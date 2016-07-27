@@ -45,7 +45,7 @@ if(isset($_POST['title'])&&isset($_POST['content'])&&isset($_POST['project'])){
 			$data = array(
 						'value1'=>date('M d h:i A',time()),
 						'value2'=>$_POST['project'],
-						'value3'=>count($items). 'task(s) completed',
+						'value3'=>count($items). ' task(s) completed',
 				);
 			$curl->post('https://maker.ifttt.com/trigger/'.$event.'/with/key/'.$token,$data);
 		}
