@@ -13,7 +13,7 @@ use \Curl\Curl;
 	$curl->post('https://todoist.com/API/v7/sync',$data);
 	$resp =  json_encode($curl->response,true);
 	$data = json_decode($resp,true);
-	if(isset($data['error_tag'])){
+	if(isset($data['error_tag'])||1){
 		$url='https://todoist.com/oauth/authorize?';
 		$url.='client_id='.$_ENV['TODOIST_CLIENT_ID'].'&';
 		$url.='scope=data:read&';
